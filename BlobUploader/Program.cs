@@ -106,8 +106,15 @@ namespace BlobUploader // Note: actual namespace depends on the project name.
                     {
                         prevBlobName = blobName;
 
+                        byte[] fileBytes = new byte[file.Length];
+
+                        using (FileStream fs = File.OpenRead(file.FullName))
+                        {
+                            fs.Read(fileBytes, 0, (int)file.Length);
+                        }
+
                         // Read the contents of the file to be uploaded
-                        byte[] fileBytes = File.ReadAllBytes(file.FullName);
+                        //byte[] fileBytes = File.ReadAllBytes(file.FullName);
 
                         blobClient = blobContainerClient.GetBlobClient(blobName);
 
